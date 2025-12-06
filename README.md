@@ -18,7 +18,7 @@ Sigue estos pasos para levantar el proyecto en tu máquina local:
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
+    git clone https://github.com/JosephAparicio/PT-EFACT.git
     cd efact-pt
     ```
 

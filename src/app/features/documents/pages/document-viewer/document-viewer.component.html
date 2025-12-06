@@ -1,0 +1,129 @@
+<div class="min-h-screen bg-gray-50">
+    <div *ngIf="toastMessage()"
+        class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center space-x-3 animate-fade-in min-w-[320px] max-w-[90vw] sm:max-w-md border border-gray-700">
+        <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <span class="text-base font-medium flex-1">{{ toastMessage() }}</span>
+    </div>
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <img src="/logoEfact.png" alt="EFACT" class="h-8 sm:h-10" />
+                    <span class="text-base sm:text-xl font-bold text-gray-900">Visor de Documentos</span>
+                </div>
+                <button (click)="logout()"
+                    class="flex items-center space-x-1 sm:space-x-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white bg-red-600 hover:bg-red-700 transition-colors font-medium cursor-pointer text-xs sm:text-base">
+                    <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="hidden xs:inline">Cerrar Sesión</span>
+                    <span class="xs:hidden">Salir</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
+        <div class="bg-white rounded-t-xl border border-gray-200 border-b-0">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 gap-3">
+                <nav class="flex space-x-1 overflow-x-auto" role="tablist">
+                    <button (click)="setActiveTab(DocumentType.PDF)" [class.active]="activeTab() === DocumentType.PDF"
+                        class="tab-btn px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-all whitespace-nowrap text-sm sm:text-base cursor-pointer"
+                        [class.bg-cyan-500]="activeTab() === DocumentType.PDF"
+                        [class.text-white]="activeTab() === DocumentType.PDF"
+                        [class.bg-gray-100]="activeTab() !== DocumentType.PDF"
+                        [class.text-gray-700]="activeTab() !== DocumentType.PDF"
+                        [class.hover:bg-gray-200]="activeTab() !== DocumentType.PDF">
+                        Documento
+                    </button>
+                    <button (click)="setActiveTab(DocumentType.XML)" [class.active]="activeTab() === DocumentType.XML"
+                        class="tab-btn px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-all whitespace-nowrap text-sm sm:text-base cursor-pointer"
+                        [class.bg-cyan-500]="activeTab() === DocumentType.XML"
+                        [class.text-white]="activeTab() === DocumentType.XML"
+                        [class.bg-gray-100]="activeTab() !== DocumentType.XML"
+                        [class.text-gray-700]="activeTab() !== DocumentType.XML"
+                        [class.hover:bg-gray-200]="activeTab() !== DocumentType.XML">
+                        XML
+                    </button>
+                    <button (click)="setActiveTab(DocumentType.CDR)" [class.active]="activeTab() === DocumentType.CDR"
+                        class="tab-btn px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-all whitespace-nowrap text-sm sm:text-base cursor-pointer"
+                        [class.bg-cyan-500]="activeTab() === DocumentType.CDR"
+                        [class.text-white]="activeTab() === DocumentType.CDR"
+                        [class.bg-gray-100]="activeTab() !== DocumentType.CDR"
+                        [class.text-gray-700]="activeTab() !== DocumentType.CDR"
+                        [class.hover:bg-gray-200]="activeTab() !== DocumentType.CDR">
+                        CDR
+                    </button>
+                </nav>
+
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs sm:text-sm text-gray-600 hidden sm:inline">Descargar:</span>
+                    <button (click)="downloadFile('pdf')" [disabled]="loading()" [class.opacity-50]="loading()"
+                        class="download-btn px-3 py-1.5 rounded text-xs sm:text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-colors cursor-pointer disabled:cursor-not-allowed">
+                        PDF
+                    </button>
+                    <button (click)="downloadFile('xml')" [disabled]="loading()" [class.opacity-50]="loading()"
+                        class="download-btn px-3 py-1.5 rounded text-xs sm:text-sm font-medium bg-green-600 text-white hover:bg-green-700 transition-colors cursor-pointer disabled:cursor-not-allowed">
+                        XML
+                    </button>
+                    <button (click)="downloadFile('cdr')" [disabled]="loading()" [class.opacity-50]="loading()"
+                        class="download-btn px-3 py-1.5 rounded text-xs sm:text-sm font-medium bg-cyan-600 text-white hover:bg-cyan-700 transition-colors cursor-pointer disabled:cursor-not-allowed">
+                        CDR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-b-xl border border-gray-200 shadow-lg overflow-hidden">
+            <div class="p-3 sm:p-6">
+                <div *ngIf="loading()" class="flex items-center justify-center py-12 sm:py-20">
+                    <div class="text-center">
+                        <svg class="animate-spin h-10 w-10 sm:h-12 sm:w-12 text-cyan-600 mx-auto mb-3 sm:mb-4"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        <p class="text-sm sm:text-base text-gray-600">Cargando documento...</p>
+                    </div>
+                </div>
+
+                <div *ngIf="errorMessage() && !loading()" class="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6">
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 sm:h-6 sm:w-6 text-red-600 mr-2 sm:mr-3 flex-shrink-0" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p class="text-sm sm:text-base text-red-800">{{ errorMessage() }}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="!loading() && !errorMessage()">
+                    <app-pdf-viewer *ngIf="activeTab() === DocumentType.PDF" [pdfUrl]="pdfUrl()" [loading]="loading()">
+                    </app-pdf-viewer>
+
+                    <app-xml-viewer *ngIf="activeTab() === DocumentType.XML" [content]="xmlContent()"
+                        [loading]="loading()">
+                    </app-xml-viewer>
+
+                    <app-cdr-viewer *ngIf="activeTab() === DocumentType.CDR" [content]="cdrContent()"
+                        [loading]="loading()">
+                    </app-cdr-viewer>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>

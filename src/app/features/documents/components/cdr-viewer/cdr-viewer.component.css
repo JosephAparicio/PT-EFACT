@@ -1,0 +1,54 @@
+.xml-syntax {
+    color: #e0e0e0;
+}
+
+.xml-tag {
+    color: #569cd6;
+}
+
+.xml-attr {
+    color: #9cdcfe;
+}
+
+.xml-attr-name {
+    color: #9cdcfe;
+}
+
+.xml-attr-value {
+    color: #ce9178;
+}
+
+.xml-comment {
+    color: #6a9955;
+    font-style: italic;
+}
+
+.line-numbers {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.code-content::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.code-content::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.code-content::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 6px;
+}
+
+.code-content::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+.code-content pre {
+    margin: 0;
+    overflow: visible;
+}

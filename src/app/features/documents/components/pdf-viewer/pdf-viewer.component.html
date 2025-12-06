@@ -1,0 +1,27 @@
+<div class="pdf-viewer-container">
+    <div *ngIf="safePdfUrl" class="relative">
+        <div class="flex items-center mb-3 sm:mb-4 pb-2 sm:pb-3 border-b border-slate-200">
+            <h3 class="text-base sm:text-lg font-semibold text-slate-900 flex items-center">
+                <svg class="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-red-600 flex-shrink-0" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span class="text-sm sm:text-base">Comprobante PDF</span>
+            </h3>
+        </div>
+
+        <div class="pdf-wrapper rounded-lg overflow-hidden border border-slate-300 bg-slate-100">
+            <iframe [src]="safePdfUrl" class="pdf-iframe w-full h-[500px] sm:h-[700px]" title="Visor de PDF"></iframe>
+        </div>
+    </div>
+
+    <div *ngIf="!safePdfUrl && !loading" class="text-center py-12 sm:py-20">
+        <svg class="h-12 w-12 sm:h-16 sm:w-16 text-slate-400 mx-auto mb-3 sm:mb-4" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+        <p class="text-sm sm:text-base text-slate-600">No hay PDF disponible</p>
+    </div>
+</div>

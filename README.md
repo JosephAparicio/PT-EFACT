@@ -19,7 +19,7 @@ Sigue estos pasos para levantar el proyecto en tu máquina local:
 1.  **Clonar el repositorio:**
     ```bash
     git clone https://github.com/JosephAparicio/PT-EFACT.git
-    cd efact-pt
+    cd PT-EFACT
     ```
 
 2.  **Instalar dependencias:**
